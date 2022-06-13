@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page </title>
+    <link rel="stylesheet" href="src/css/home.css">
+</head>
+<body>
+    <header>
+        <h1>Form with Node JS<h1>
+    </header>
+    <section class="conteiner">
+        <div class="box">
+            <h2>Aplicação feita com Node JS</h2>
+            <p>Aplicação simples de obter dados de um formulário utilizando HTML, CSS  e Node JS. Utilizando bibliotecas com o node, renderizando páginas, utilizando rotas e guardando em um arquivo.</p>
+        </div>
+        <form action="/cadastro" method="post">
+            <input type="text" name="Nome" autocomplete="off" placeholder="Nome" id="nameuser"> 
+            
+            <input type="text" name="Sobrenome" autocomplete="off" placeholder="Sobrenome" id="lastname"> 
+
+            <input type="email" name="Email" placeholder="Email" id="emailuser"> 
+
+            <button>ENVIAR</button>
+        </form>
+    </section>
+</body>
+</html>
