@@ -1,58 +1,52 @@
-// init express and port; 
-const express = require('express');
-const bodyparser = require('body-parser'); 
 const fs = require('fs'); 
+const bodyParser = require('body-parser'); 
 const port = 3000; 
 
-// Config express 
-const app = express(); 
-app.use(express.json()); 
+const express = require('express');
+const app = express();
 
-// body-parser 
-app.use(bodyparser.urlencoded()); 
+// body parser 
+app.use(bodyParser.urlencoded()); 
 
-// src local languages 
-app.use(express.static(__dirname + "/public")); 
+let bankDataUsers = []; 
 
-//bank 
-let bankData = [ ]; 
-
-// fs read
-fs.readFile("cadastrosdeusuarios.json", "utf-8", (err, data) => {
-    if (err) {
-        console.log(err); 
+// read data users
+fs.readFile('datausers.json', 'utf-8', (error, data) => {
+    if (error) {
+        console.log(error)
     } else {
-        bankData = JSON.parse(data); 
+        bankDataUsers = JSON.parse(data); 
     }
 })
 
-// rotas 
-app.get('/home', (req, res) => {
-    res.sendFile(__dirname + "/public/home.html")
+// page router
+app.use(express.static(__dirname + '/public')); 
+
+app.get('/home', (res, req) => {
+    req.sendFile(__dirname + '/public/home.html'); 
 })
 
 app.post('/cadastro', (req, res) => {
-    const {Nome, Sobrenome, Email} = req.body; 
-
-    const cadastro = {
-        Nome, 
-        Sobrenome, 
-        Email
+    const {nameuser, lastname, email} = req.body; 
+    const createUser = {
+        nameuser, lastname, email
     }
 
-    bankData.push(cadastro); 
-
-    fs.writeFile("cadastrosdeusuarios.json", JSON.stringify(bankData), (err) => {
-        if (err) {
-            console.log(err); 
+    fs.writeFile('datausers.json', JSON.stringify(createUser), (erro) => {
+        if (erro) {
+            console.log(erro); 
         } else {
-            console.log('Dados salvos com sucesso!');
+            console.log('Data of form succes!'); 
         }
     })
 
-    res.send('Dados enviados com sucesso!')
+    bankDataUsers.push(createUser); 
+
+    console.log(createUser); 
+
+    res.send('Succes!'); 
 })
 
 app.listen(port, () => {
-    console.log('Sever running...')  
-})
+    console.log('Server Running'); 
+}); 
